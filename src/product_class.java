@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,4 +40,22 @@ public class product_class {
         return ruela;
         
     }
+    public int product_addQty(int id, Object qty){int y = 0;
+        try{
+    String sql = "update product set Quantity =Quantity+ ? where ID=?;";
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/berioreg?", "root", "");
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    
+    pstmt.setString(1, qty.toString());
+    pstmt.setInt(2, id);
+    y=pstmt.executeUpdate();
+    
+    
+}       catch (ClassNotFoundException ex) {
+            Logger.getLogger(product_class.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(product_class.class.getName()).log(Level.SEVERE, null, ex);
+        }return y; 
+    }   
 }
